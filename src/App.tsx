@@ -10,10 +10,29 @@ import { Footer } from "./components/Footer";
 
 import "./styles/theme.css";
 import "./styles/global.css";
+import { Heading } from "./components/Heading";
+import { useState } from "react";
 
 export function App() {
+    // Que todos os componentes que usam "numero" saibam das mudanças em ser valor.
+
+    // Sempre que usar useState, não vou usar atribuição diretamente
+    // const [numero, setNumero] = useState(() => {
+    //     console.log("lazy initialization");
+    //     return 0;
+    // });
+    const [numero, setNumero] = useState(0);
+
+    function handleClick() {
+        // setNumero(prevState => prevState + 1);
+        setNumero(1);
+    }
+
     return (
         <>
+            <Heading>Número: {numero}</Heading>
+            <button onClick={handleClick}>Aumenta</button>
+
             <Container>
                 <Logo />
             </Container>
@@ -30,7 +49,7 @@ export function App() {
                 <form action="" className="form">
                     <div className="formRow">
                         <Input
-                            labelText="task"
+                            labelText={numero.toString()}
                             id="meuInput"
                             type="text"
                             placeholder="Digite algo"
