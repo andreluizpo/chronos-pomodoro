@@ -4,35 +4,20 @@ import { CountDown } from "../../components/CountDown";
 import { MainForm } from "../../components/MainForm";
 import type { TaskStateModel } from "../../models/TaskStateModel";
 
-type HomePros = {
+export type HomePros = {
     state: TaskStateModel;
     setState: React.Dispatch<React.SetStateAction<TaskStateModel>>;
 };
 
 export function Home(props: HomePros) {
-    const { state, setState } = props;
-
-    function handleClick() {
-        setState(prevState => {
-            return {
-                ...prevState,
-                currentCycles: 5,
-            };
-        });
-    }
-
     return (
         <MainTemplate>
             <Container>
-                <button onClick={handleClick}>clicar</button>
+                <CountDown {...props} />
             </Container>
 
             <Container>
-                <CountDown />
-            </Container>
-
-            <Container>
-                <MainForm />
+                <MainForm {...props} />
             </Container>
         </MainTemplate>
     );
