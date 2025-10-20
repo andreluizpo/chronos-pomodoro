@@ -1,22 +1,10 @@
 import { Home } from "./pages/Home";
 import { useState } from "react";
 import type { TaskStateModel } from "./models/TaskStateModel";
+import { TaskContext } from "./contexts/TaksContext";
 
 import "./styles/theme.css";
 import "./styles/global.css";
-
-// export type TaskStateModel = {
-//     tasks: TaskModel[];
-//     secondsRemaining: number;
-//     formattedSecondsRemaining: string;
-//     activeTask: TaskModel | null;
-//     currentCycles: number; // 1 a 8
-//     config: {
-//         workTime: number;
-//         shortBreakTime: number;
-//         longBreakTime: number;
-//     };
-// };
 
 const initialState: TaskStateModel = {
     tasks: [],
@@ -34,5 +22,9 @@ const initialState: TaskStateModel = {
 export function App() {
     const [state, setState] = useState(initialState);
 
-    return <Home state={state} setState={setState} />;
+    return (
+        <TaskContext.Provider value={{ outraCoisa: 321 }}>
+            <Home />
+        </TaskContext.Provider>
+    );
 }
