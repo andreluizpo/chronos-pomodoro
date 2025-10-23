@@ -71,9 +71,11 @@ export function MainForm() {
                 <p>Próximo intervalo é de 25min</p>
             </div>
 
-            <div className="formRow">
-                <Cycles />
-            </div>
+            {state.currentCycles > 0 && (
+                <div className="formRow">
+                    <Cycles />
+                </div>
+            )}
 
             <div className="formRow">
                 <Button icon={<PlayCircleIcon />} />
