@@ -6,17 +6,26 @@
 // payload <- os dados extras enviados junto com a action, se necessário para atualizar o estado
 
 import type { TaskModel } from "../../models/TaskModel";
+import type { TaskStateModel } from "../../models/TaskStateModel";
 
 export enum TaskActionTypes {
     START_TASK = "START_TASK",
     INTERRUPT_TASK = "INTERRUPT_TASK",
     RESET_TASK = "RESET_TASK",
+    COUNT_DOWN = "COUNT_DOWN",
+    COMPLETE_TASK = "COMPLETE_TASK",
 }
 
-export type TaskActionsWithPayload = {
-    type: TaskActionTypes.START_TASK;
-    payload: TaskModel;
-};
+export type TaskActionsWithPayload =
+    | {
+          type: TaskActionTypes.START_TASK;
+          payload: TaskModel;
+      }
+    | {
+          type: TaskActionTypes.COUNT_DOWN;
+          //   payload: Pick<TaskStateModel, "secondsRemaining">; // Forma de pegar a chave
+          payload: { secondsRemaining: number }; // Outra forma de pegar a chave, quando se precisa de apenas uma chave
+      };
 
 export type TaskActionWithoutPayload =
     | {
@@ -24,6 +33,9 @@ export type TaskActionWithoutPayload =
       }
     | {
           type: TaskActionTypes.INTERRUPT_TASK;
+      }
+    | {
+          type: TaskActionTypes.COMPLETE_TASK;
       };
 
 export type TaskActionModel = TaskActionsWithPayload | TaskActionWithoutPayload;
