@@ -1,4 +1,4 @@
-import { useTaskContext } from "../../contexts/TaksContext/useTaskContext";
+import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 
 type TipsProps = {
     nextCycleType: "workTime" | "shortBreakTime" | "longBreakTime";

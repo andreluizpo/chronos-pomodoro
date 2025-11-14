@@ -4,10 +4,10 @@ import { Cycles } from "../Cycles";
 import { Input } from "../Input";
 import { useRef } from "react";
 import type { TaskModel } from "../../models/TaskModel";
-import { useTaskContext } from "../../contexts/TaksContext/useTaskContext";
+import { useTaskContext } from "../../contexts/TaskContext/useTaskContext";
 import { getNextCycle } from "../../utils/getNextCycle";
 import { getNextCycleType } from "../../utils/getNextCycleType";
-import { TaskActionTypes } from "../../contexts/TaksContext/taskActions";
+import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 import { Tips } from "../Tips";
 import { showMessage } from "../../adapters/showMessage";
 
