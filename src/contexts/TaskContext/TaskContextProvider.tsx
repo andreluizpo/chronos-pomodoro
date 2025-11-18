@@ -5,6 +5,7 @@ import { taskReducer } from "./taskReducer";
 import { TimerWorkerManager } from "../../workers/TimerWorkerManager";
 import { TaskActionTypes } from "./taskActions";
 import { loadBeep } from "../../utils/loadBeep";
+import type { formatSecondsToMinutes } from "../../utils/formatSecondsToMinutes";
 
 type TaskContextProviderProps = {
     children: React.ReactNode;
@@ -48,6 +49,8 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
         if (!state.activeTask) {
             worker.terminate();
         }
+
+        document.title = `${state.formattedSecondsRemaining} - Chronos Pomodoro`;
 
         worker.postMessage(state);
     }, [state, worker]);
