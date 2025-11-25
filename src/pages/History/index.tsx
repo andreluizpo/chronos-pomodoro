@@ -10,10 +10,13 @@ import { useEffect, useState } from "react";
 import { sortTasks, type SortTasksOptions } from "../../utils/sortTask";
 
 import styles from "./styles.module.css";
+import { showMessage } from "../../adapters/showMessage";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
 
 export function History() {
     const { state, dispatch } = useTaskContext();
+    const [confirmClearHistory, setConfirmClearHistory] = useState(false);
+
     const hasTasks = state.tasks.length > 0;
 
     const [sortTasksOptions, setSortTasksOptions] = useState<SortTasksOptions>(() => {
@@ -35,6 +38,14 @@ export function History() {
         }));
     }, [state.tasks]);
 
+    useEffect(() => {
+        if (!confirmClearHistory) return;
+
+        setConfirmClearHistory(false);
+
+        dispatch({ type: TaskActionTypes.RESET_TASK });
+    }, [confirmClearHistory, dispatch]);
+
     function handleSortTasks({ field }: Pick<SortTasksOptions, "field">) {
         const newDirection = sortTasksOptions.direction === "desc" ? "asc" : "desc";
 
@@ -50,9 +61,10 @@ export function History() {
     }
 
     function handleResetHistory() {
-        if (!confirm("Tem certeza?")) return;
-
-        dispatch({ type: TaskActionTypes.RESET_TASK });
+        showMessage.dismiss();
+        showMessage.confirm("Tem certeza?", confirmation => {
+            setConfirmClearHistory(confirmation);
+        });
     }
 
     return (
