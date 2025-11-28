@@ -8,10 +8,10 @@ import { formatDate } from "../../utils/formatDate";
 import { getTaskStatus } from "../../utils/getTaskStatus";
 import { useEffect, useState } from "react";
 import { sortTasks, type SortTasksOptions } from "../../utils/sortTask";
-
-import styles from "./styles.module.css";
 import { showMessage } from "../../adapters/showMessage";
 import { TaskActionTypes } from "../../contexts/TaskContext/taskActions";
+
+import styles from "./styles.module.css";
 
 export function History() {
     const { state, dispatch } = useTaskContext();
@@ -37,6 +37,10 @@ export function History() {
             }),
         }));
     }, [state.tasks]);
+
+    useEffect(() => {
+        document.title = "Histórico - Chronos Pomodoro";
+    }, []);
 
     useEffect(() => {
         if (!confirmClearHistory) return;
@@ -77,7 +81,7 @@ export function History() {
         <MainTemplate>
             <Container>
                 <Heading>
-                    <span>History</span>
+                    <span>Histórico</span>
                     {hasTasks && (
                         <span className={styles.buttonContainer}>
                             <Button
@@ -121,7 +125,7 @@ export function History() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {sortTasksOptions.tasks.map(task => {
+                                {sortTasksOptions.tasks.slice(0, 20).map(task => {
                                     const taskTypeMap = {
                                         workTime: "Foco",
                                         shortBreakTime: "Descanso curto",
